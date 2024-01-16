@@ -6,6 +6,7 @@ A module to manage API authentication
 
 from flask import request
 
+
 class Auth():
     """
     A class to manage Api authentication
@@ -16,7 +17,8 @@ class Auth():
 
         Args:
         - path (str): The path of the request.
-        - excluded_paths (List[str]): List of paths to be excluded from authentication check.
+        - excluded_paths (List[str]): List of paths to be excluded
+        from authentication check.
 
         Returns:
         - bool: Always returns False for now.
