@@ -4,6 +4,7 @@
 A module to manage API authentication
 """
 
+from typing import List, TypeVar
 from flask import request
 
 
