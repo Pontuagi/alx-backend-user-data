@@ -32,3 +32,11 @@ def unauthorized_route():
     Endpoint to raise a 401 error
     """
     abort(401)
+
+
+@app_views.route('/api/v1/forbidden', methods=['GET'])
+def forbidden_route():
+    """
+    Endpoint to raise a 403 error
+    """
+    abort(403)
