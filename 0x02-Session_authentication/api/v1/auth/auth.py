@@ -6,6 +6,7 @@ A module to manage API authentication
 
 from typing import List, TypeVar
 from flask import request, Request
+from os import getenv
 
 
 class Auth():
