@@ -4,7 +4,7 @@
 New Flask view module
 """
 
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, abort
 from models.user import User
 from api.v1.app import auth
 
@@ -42,3 +42,18 @@ def login():
     response.set_cookie(auth.session_cookie_name, session_id)
 
     return response
+
+
+@app_views_session_auth.route(
+        '/logout',
+        methods=['DELETE'],
+        strict_slashes=False
+        )
+def logout():
+    """
+    Handles user logout for Session authentication
+    """
+    if not auth.destroy_session(request):
+        abort(404)
+
+    return jsonify({}), 200
