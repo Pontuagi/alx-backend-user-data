@@ -69,7 +69,7 @@ class Auth():
         """
         return None
 
-    def session_cookie(self, request: Request = None) -> str:
+    def session_cookie(self, request=None):
         """
         A method that returns a cookie value from a request
 
