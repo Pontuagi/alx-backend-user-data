@@ -72,3 +72,21 @@ class Auth:
         # Example: hashed_password = self._db._hash_password(password)
         hashed_password = _hash_password(password)
         return hashed_password
+
+    def _find_user_by(self, **kwargs) -> User:
+        """
+        Find a user in the database based on the provided filter arguments.
+
+        Args:
+            **kwargs: Arbitrary keyword arguments for filtering.
+
+        Returns:
+            User: The User object representing the first user found.
+
+        Raises:
+            NoResultFound: If no results are found.
+        """
+        try:
+            return self._db.find_user_by(**kwargs)
+        except NoResultFound:
+            return None
