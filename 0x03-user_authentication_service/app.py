@@ -4,7 +4,7 @@
 Flask app module
 """
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
 from auth import Auth
 
 app = Flask(__name__)
@@ -12,7 +12,7 @@ AUTH = Auth()
 
 
 @app.route("/", methods=["GET"], strict_slashes=False)
-def welcome() -> str:
+def welcome() -> Response:
     """ Welcome message
 
     return:
@@ -22,7 +22,7 @@ def welcome() -> str:
 
 
 @app.route("/users", methods=["POST"], strict_slashes=False)
-def register_user() -> str:
+def register_user() -> Response:
     """
     Register user a new user
     """
