@@ -64,11 +64,11 @@ class Auth:
         """Check if login credentials are valid."""
         try:
             user = self._db.find_user_by(email=email)
-            # Check if the password matches using bcrypt
-            return bcrypt.checkpw(
-                password.encode('utf-8'), user.hashed_password)
-        except Exception as e:
+        except NoResultFound:
             return False
+        except InvalidRequestError:
+            return False
+        return bcrypt.checkpw(password.encode('utf-8'), user.hashed_password)
 
     def _generate_uuid() -> str:
         """Generate a string representation of a new UUID."""
