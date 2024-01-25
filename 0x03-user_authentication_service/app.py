@@ -24,6 +24,9 @@ def welcome():
 
 @app.route("/users", methods=["POST"])
 def register_user():
+    """
+    Register user a new user
+    """
     try:
         email = request.form.get("email")
         password = request.form.get("password")
