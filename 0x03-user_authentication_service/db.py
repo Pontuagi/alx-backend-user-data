@@ -38,13 +38,6 @@ class DB:
     def add_user(self, email: str, hashed_password: str) -> User:
         """
         Add a new user to the database
-
-        Args:
-            email (str): Email of the user.
-            hashed_password (str): Hashed password of the user.
-
-        Returns:
-            User: The User object representing the added user.
         """
         new_user = User(email=email, hashed_password=hashed_password)
         self._session.add(new_user)
@@ -54,16 +47,6 @@ class DB:
     def find_user_by(self, **kwargs) -> User:
         """
         Find a user in the database based on the provided filter arguments.
-
-        Args:
-            **kwargs: Arbitrary keyword arguments for filtering.
-
-        Returns:
-            User: The User object representing the first user found.
-
-        Raises:
-            NoResultFound: If no results are found.
-            InvalidRequestError: If wrong query arguments are passed.
         """
         try:
             user = self._session.query(User).filter_by(**kwargs).first()
@@ -79,19 +62,6 @@ class DB:
         """
         Update a user in the database based on the provided user_id and
         keyword arguments.
-
-        Args:
-            user_id (int): The ID of the user to be updated.
-            **kwargs: Arbitrary keyword arguments representing user attributes
-            to be updated.
-
-        Returns:
-            None
-
-        Raises:
-            NoResultFound: If no user is found with the specified user_id.
-            InvalidRequestError: If an invalid query is made to the database.
-            ValueError: If an argument does not correspond to a user attribute.
         """
         try:
             # Find the user by user_id
