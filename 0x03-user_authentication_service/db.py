@@ -7,11 +7,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy.exc import NoResultFound, InvalidRequestError
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
+
 from user import Base, User
-
-
-logging.getLogger('sqlalchemy').setLevel(logging.WARNING)
 
 
 class DB:
@@ -51,12 +50,10 @@ class DB:
         try:
             user = self._session.query(User).filter_by(**kwargs).first()
             if user is None:
-                raise NoResultFound("No such user found")
-            return user
-        except NoResultFound:
-            raise
-        except InvalidRequestError as e:
-            raise InvalidRequestError("Invalid query arguments: {}".format(e))
+                raise NoResultFound
+        except TypeError:
+            raise InvalidRequestError
+        return user
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """
@@ -69,16 +66,9 @@ class DB:
 
             # Update user attributes based on keyword arguments
             for key, value in kwargs.items():
-                if hasattr(User, key):
+                if hasattr(user, key):
                     setattr(user, key, value)
                 else:
-                    raise ValueError(f"Invalid attribute: {key}")
+                    raise ValueError
 
-            # Commit changes to the database
             self._session.commit()
-
-        except NoResultFound:
-            raise NoResultFound(f"No user found with user_id: {user_id}")
-
-        except InvalidRequestError as e:
-            raise InvalidRequestError(f"Invalid query: {e}")
