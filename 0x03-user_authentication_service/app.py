@@ -11,8 +11,8 @@ app = Flask(__name__)
 AUTH = Auth()
 
 
-@app.route("/", methods=["GET"])
-def welcome():
+@app.route("/", methods=["GET"], strict_slashes=False)
+def welcome() -> str:
     """ Welcome message
 
     return:
@@ -21,8 +21,8 @@ def welcome():
     return jsonify({"message": "Bienvenue"})
 
 
-@app.route("/users", methods=["POST"])
-def register_user():
+@app.route("/users", methods=["POST"], strict_slashes=False)
+def register_user() -> str:
     """
     Register user a new user
     """
