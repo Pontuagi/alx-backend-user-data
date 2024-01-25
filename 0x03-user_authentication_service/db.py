@@ -2,7 +2,6 @@
 
 """DB module
 """
-import logging
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -60,15 +59,14 @@ class DB:
         Update a user in the database based on the provided user_id and
         keyword arguments.
         """
-        try:
-            # Find the user by user_id
-            user = self.find_user_by(id=user_id)
+        # Find the user by user_id
+        user = self.find_user_by(id=user_id)
 
-            # Update user attributes based on keyword arguments
-            for key, value in kwargs.items():
-                if hasattr(user, key):
-                    setattr(user, key, value)
-                else:
-                    raise ValueError
+        # Update user attributes based on keyword arguments
+        for key, value in kwargs.items():
+            if hasattr(user, key):
+                setattr(user, key, value)
+            else:
+                raise ValueError
 
-            self._session.commit()
+        self._session.commit()
