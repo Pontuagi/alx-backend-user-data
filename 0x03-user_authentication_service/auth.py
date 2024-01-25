@@ -67,9 +67,7 @@ class Auth:
             # Check if the password matches using bcrypt
             return bcrypt.checkpw(
                 password.encode('utf-8'), user.hashed_password)
-        except NoResultFound:
-            return False
-        except InvalidRequestError:
+        except Exception as e:
             return False
 
     def _generate_uuid() -> str:
