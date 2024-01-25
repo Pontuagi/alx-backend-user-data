@@ -18,8 +18,7 @@ def welcome():
     return:
         - json payload
     """
-    message = {"message": "Bienvenue"}
-    return jsonify(message)
+    return jsonify({"message": "Bienvenue"})
 
 
 @app.route("/users", methods=["POST"])
@@ -27,11 +26,12 @@ def register_user():
     """
     Register user a new user
     """
+    email = request.form.get('email')
+    password = request.form.get('password')
+
     try:
-        email = request.form.get("email")
-        password = request.form.get("password")
-        new_user = AUTH.register_user(email, password)
-        return jsonify({"email": new_user.email, "message": "user created"})
+        AUTH.register_user(email, password)
+        return jsonify({"email": email, "message": "user created"})
 
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
